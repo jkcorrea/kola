@@ -2,19 +2,94 @@
   "name": "kola",
   "version": "0.1.0",
   "private": true,
+  "description": "Database schema generator for Rails",
+  "author": "Jake Correa <jcorrea257@gmail.com>",
   "scripts": {
-    "dev": "next dev",
     "build": "next build",
+    "dev": "next dev",
+    "format": "run-s format-doctoc format-package-json format-imports format-prettier format-eslint",
+    "format-doctoc": "doctoc --maxlevel 3 --notitle ./README.md ./CONTRIBUTING.md",
+    "format-eslint": "eslint --cache --ext .js,.jsx,.ts,.tsx --fix ./ >/dev/null 2>&1 || true",
+    "format-imports": "import-sort --write **/*.{js,jsx,ts,tsx}",
+    "format-package-json": "sort-package-json",
+    "format-prettier": "prettier --write '**/*.{js,jsx,ts,tsx,html,css,scss,gql,json,md}' '.editorconfig' 'LICENSE'",
+    "lint": "run-p lint-eslint lint-markdown",
+    "lint-eslint": "eslint --cache --ext .js,.jsx,.ts,.tsx --format=pretty ./",
+    "lint-markdown": "markdownlint --ignore coverage --ignore node_modules '**/*.md' '.**/**/*.md'",
     "start": "next start"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "(README|CONTRIBUTING).md": [
+      "npm run format-doctoc"
+    ],
+    "**/*.md": [
+      "npm run lint-markdown"
+    ],
+    "**/*.{js,jsx,ts,tsx}": [
+      "import-sort --write",
+      "prettier --write",
+      "eslint --cache --ext '.js,.jsx,.ts,.tsx' --fix",
+      "jest --bail --findRelatedTests"
+    ],
+    "*.{js,jsx,ts,tsx,html,css,scss,gql,json,md}": [
+      "prettier --write"
+    ],
+    "LICENSE": [
+      "prettier --write"
+    ],
+    "package.json": [
+      "npm run format-package-json"
+    ],
+    "src/**/*": [
+      "bash -c 'npm run build'"
+    ]
+  },
   "dependencies": {
+    "@chakra-ui/core": "^0.7.0",
+    "@emotion/core": "^10.0.28",
+    "@emotion/styled": "^10.0.27",
+    "dotenv": "8.2.0",
+    "emotion-theming": "^10.0.27",
     "next": "9.3.1",
     "react": "16.13.1",
-    "react-dom": "16.13.1"
+    "react-dom": "16.13.1",
+    "unstated-next": "^1.1.0"
   },
   "devDependencies": {
     "@types/node": "^12.12.31",
     "@types/react": "^16.9.25",
+    "@typescript-eslint/eslint-plugin": "^2.25.0",
+    "@typescript-eslint/parser": "^2.25.0",
+    "doctoc": "^1.4.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-typescript": "^7.2.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-formatter-pretty": "3.0.1",
+    "eslint-plugin-eslint-comments": "3.1.2",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jest": "^23.8.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-promise": "4.2.1",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "2.5.1",
+    "eslint-plugin-unicorn": "^17.2.0",
+    "husky": "^4.2.3",
+    "import-sort-cli": "^6.0.0",
+    "import-sort-parser-babylon": "^6.0.0",
+    "import-sort-parser-typescript": "^6.0.0",
+    "import-sort-style-module": "^6.0.0",
+    "jest": "^25.2.0",
+    "lint-staged": "^10.0.9",
+    "markdownlint": "^0.19.0",
+    "markdownlint-cli": "^0.22.0",
+    "prettier": "^2.0.2",
+    "rimraf": "3.0.2",
+    "sort-package-json": "^1.40.0",
     "typescript": "^3.8.3"
   }
 }
