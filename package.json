@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "description": "Database schema generator for Rails",
+  "license": "MIT",
   "author": "Jake Correa <jcorrea257@gmail.com>",
   "scripts": {
     "build": "next build",
