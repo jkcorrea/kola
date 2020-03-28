@@ -6,7 +6,7 @@
   "license": "MIT",
   "author": "Jake Correa <jcorrea257@gmail.com>",
   "scripts": {
-    "build": "next build",
+    "build": "next build && next export",
     "dev": "next dev",
     "format": "run-s format-doctoc format-package-json format-imports format-prettier format-eslint",
     "format-doctoc": "doctoc --maxlevel 3 --notitle ./README.md ./CONTRIBUTING.md",
@@ -62,10 +62,12 @@
     "unstated-next": "^1.1.0"
   },
   "devDependencies": {
+    "@emotion/babel-preset-css-prop": "^10.0.27",
     "@types/node": "^12.12.31",
     "@types/react": "^16.9.25",
     "@typescript-eslint/eslint-plugin": "^2.25.0",
     "@typescript-eslint/parser": "^2.25.0",
+    "babel-plugin-emotion": "^10.0.29",
     "doctoc": "^1.4.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-typescript": "^7.2.0",

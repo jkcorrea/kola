@@ -1,27 +1,16 @@
-module.exports = {
+const baseConfig = {
   root: true,
-  parser: '@typescript-eslint/parser',
-  parserOptions: {
-    project: './tsconfig.json',
-  },
-  plugins: [
-    '@typescript-eslint',
-    'eslint-comments',
-    'jest',
-    'promise',
-    'unicorn',
-  ],
+  parser: 'babel-eslint',
   extends: [
     'airbnb-typescript',
-    'plugin:@typescript-eslint/recommended',
     'plugin:eslint-comments/recommended',
     'plugin:jest/recommended',
     'plugin:promise/recommended',
     'plugin:unicorn/recommended',
     'prettier',
     'prettier/react',
-    'prettier/@typescript-eslint',
   ],
+  plugins: ['eslint-comments', 'jest', 'promise', 'unicorn'],
   env: {
     node: true,
     browser: true,
@@ -57,10 +46,22 @@ module.exports = {
       { cases: { pascalCase: true, kebabCase: false, camelCase: true } },
     ],
   },
+}
+
+module.exports = {
+  ...baseConfig,
   overrides: [
     {
-      files: ['*.ts', '*.tsx'],
+      files: ['**/*.ts', '**/*.tsx'],
       parser: '@typescript-eslint/parser',
+      parserOptions: {
+        project: './tsconfig.json',
+      },
+      plugins: ['@typescript-eslint'],
+      extends: [
+        'plugin:@typescript-eslint/recommended',
+        'prettier/@typescript-eslint',
+      ],
       rules: {
         'react/jsx-filename-extension': ['error', { extensions: ['.tsx'] }],
         '@typescript-eslint/explicit-function-return-type': 'off',
@@ -73,6 +74,13 @@ module.exports = {
             typedefs: true,
           },
         ],
+      },
+    },
+    {
+      files: ['src/pages/*.ts', 'src/pages/*.tsx'],
+      rules: {
+        'import/prefer-default-export': 'error',
+        'import/no-default-export': 'off',
       },
     },
   ],
