@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 require('dotenv').config()
 
 const path = require('path')
@@ -12,7 +15,6 @@ module.exports = {
   env: {
     PORT: process.env.PORT,
     BASE_URL: process.env.BASE_URL,
-    MIXPANEL_TOKEN: process.env.MIXPANEL_TOKEN,
   },
 
   // We use absolute imports in `./src/`
@@ -21,3 +23,6 @@ module.exports = {
     return config
   },
 }
+
+/* eslint-enable @typescript-eslint/no-var-requires */
+/* eslint-enable @typescript-eslint/no-unused-vars */

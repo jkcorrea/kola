@@ -1,6 +1,9 @@
-const baseConfig = {
+module.exports = {
   root: true,
-  parser: 'babel-eslint',
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    project: './tsconfig.json',
+  },
   extends: [
     'airbnb-typescript',
     'plugin:eslint-comments/recommended',
@@ -9,8 +12,17 @@ const baseConfig = {
     'plugin:unicorn/recommended',
     'prettier',
     'prettier/react',
+    'plugin:@typescript-eslint/recommended',
+    'prettier/@typescript-eslint',
   ],
-  plugins: ['eslint-comments', 'jest', 'promise', 'unicorn'],
+  plugins: [
+    '@typescript-eslint',
+    'eslint-comments',
+    'jest',
+    'promise',
+    'unicorn',
+  ],
+
   env: {
     node: true,
     browser: true,
@@ -45,37 +57,20 @@ const baseConfig = {
       'error',
       { cases: { pascalCase: true, kebabCase: false, camelCase: true } },
     ],
-  },
-}
 
-module.exports = {
-  ...baseConfig,
+    'react/jsx-filename-extension': ['error', { extensions: ['.tsx'] }],
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/no-use-before-define': [
+      'error',
+      {
+        functions: false,
+        classes: true,
+        variables: true,
+        typedefs: true,
+      },
+    ],
+  },
   overrides: [
-    {
-      files: ['**/*.ts', '**/*.tsx'],
-      parser: '@typescript-eslint/parser',
-      parserOptions: {
-        project: './tsconfig.json',
-      },
-      plugins: ['@typescript-eslint'],
-      extends: [
-        'plugin:@typescript-eslint/recommended',
-        'prettier/@typescript-eslint',
-      ],
-      rules: {
-        'react/jsx-filename-extension': ['error', { extensions: ['.tsx'] }],
-        '@typescript-eslint/explicit-function-return-type': 'off',
-        '@typescript-eslint/no-use-before-define': [
-          'error',
-          {
-            functions: false,
-            classes: true,
-            variables: true,
-            typedefs: true,
-          },
-        ],
-      },
-    },
     {
       files: ['src/pages/*.ts', 'src/pages/*.tsx'],
       rules: {
