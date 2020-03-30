@@ -1,6 +1,6 @@
 # Kola
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/zeit/next.js/tree/canary/packages/create-next-app).
+Collaborative relational database designer with automatic migration generation for your favorite framework.
 
 ## Table of Contents
 
@@ -8,42 +8,70 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 
-- [Learn More](#learn-more)
-- [Deploy on ZEIT Now](#deploy-on-zeit-now)
+- [Roadmap](#roadmap)
+- [Development](#development)
+  - [Setup](#setup)
+- [License](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ---
 
-## Getting Started
+## Roadmap
 
-First, run the development server:
+MVP
+
+- [x] Simple static app
+- [ ] Create tables
+- [ ] Support default datatypes (Postgres?), foreign keys, indices
+- [ ] Generate either SQL or Rails migrations (or rails migration generator command)
+- [ ] Save state as hash urls:
+  - [ ] Admin (editable) hash
+  - [ ] Read-only hash
+
+v1.0
+
+- [ ] Tests
+- [ ] Backend
+- [ ] User accounts
+- [ ] Drafts
+- [ ] Version locks (tag a version)
+- [ ] Support more frameworks/languages
+- [ ] Support non-standard PG/other rdb featues
+
+v2.0
+
+- [ ] Teams
+- [ ] Spreadsheet upload?
+
+## Development
+
+### Setup
+
+Install dependencies:
+
+```bash
+npm i
+# or
+yarn
+```
+
+Setup envioronment variables locally:
+
+```bash
+cp .env.example .env
+# edit .env according to its instructions/your liking
+```
+
+Off to the races!
 
 ```bash
 npm run dev
 # or
 yarn dev
+# app is now running at http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## License
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
----
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/zeit/next.js/) - your feedback and contributions are welcome!
-
----
-
-## Deploy on ZEIT Now
-
-The easiest way to deploy your Next.js app is to use the [ZEIT Now Platform](https://zeit.co/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Kola is BSL 1.1 licensed

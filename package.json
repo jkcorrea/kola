@@ -9,7 +9,7 @@
     "build": "next build && next export",
     "dev": "next dev",
     "format": "run-s format-doctoc format-package-json format-imports format-prettier format-eslint",
-    "format-doctoc": "doctoc --maxlevel 3 --notitle ./README.md ./CONTRIBUTING.md",
+    "format-doctoc": "doctoc --maxlevel 3 --notitle ./README.md",
     "format-eslint": "eslint --cache --ext .js,.jsx,.ts,.tsx --fix ./ >/dev/null 2>&1 || true",
     "format-imports": "import-sort --write **/*.{js,jsx,ts,tsx}",
     "format-package-json": "sort-package-json",
@@ -25,9 +25,6 @@
     }
   },
   "lint-staged": {
-    "(README|CONTRIBUTING).md": [
-      "npm run format-doctoc"
-    ],
     "**/*.md": [
       "npm run lint-markdown"
     ],
@@ -42,6 +39,9 @@
     ],
     "LICENSE": [
       "prettier --write"
+    ],
+    "README.md": [
+      "npm run format-doctoc"
     ],
     "package.json": [
       "npm run format-package-json"
@@ -58,10 +58,13 @@
     "emotion-theming": "^10.0.27",
     "next": "9.3.1",
     "react": "16.13.1",
+    "react-dnd": "^10.0.2",
+    "react-dnd-html5-backend": "^10.0.2",
     "react-dom": "16.13.1",
     "unstated-next": "^1.1.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.9.0",
     "@emotion/babel-preset-css-prop": "^10.0.27",
     "@types/node": "^12.12.31",
     "@types/react": "^16.9.25",
@@ -91,6 +94,7 @@
     "markdownlint": "^0.19.0",
     "markdownlint-cli": "^0.22.0",
     "prettier": "^2.0.2",
+    "prop-types": "^15.7.2",
     "rimraf": "3.0.2",
     "sort-package-json": "^1.40.0",
     "typescript": "^3.8.3"
