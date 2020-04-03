@@ -1,3 +1,7 @@
+// TODO fire hot. this bad.
+// Find a way to import this only where needed (i.e. DataGrid component)
+import 'react-data-grid/dist/react-data-grid.css'
+
 import { CSSReset, DarkMode, ThemeProvider } from '@chakra-ui/core'
 
 import { AppProps } from 'next/app'
@@ -16,6 +20,15 @@ const MyApp = ({ Component, pageProps }: AppProps) => (
       <Component {...pageProps} />
     </DarkMode>
     {/* </ColorModeProvider> */}
+
+    <style global jsx>{`
+      html,
+      body,
+      body > div:first-child,
+      div#__next {
+        height: 100%;
+      }
+    `}</style>
   </ThemeProvider>
 )
 

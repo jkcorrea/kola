@@ -37,16 +37,7 @@ class MyDocument extends Document {
             content={`${BASE_URL}/static/images/logo.png`}
           />
         </Head>
-        <body
-          style={{
-            font: '15px Roboto',
-            color: '#fff',
-            fontWeight: 300,
-            lineHeight: '1.5em',
-            padding: '0px 0px 0px 0px !important',
-            letterSpacing: '0.01em',
-          }}
-        >
+        <body>
           <Main />
           <NextScript />
         </body>

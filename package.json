@@ -58,8 +58,7 @@
     "emotion-theming": "^10.0.27",
     "next": "9.3.1",
     "react": "16.13.1",
-    "react-dnd": "^10.0.2",
-    "react-dnd-html5-backend": "^10.0.2",
+    "react-data-grid": "^7.0.0-canary.14",
     "react-dom": "16.13.1",
     "unstated-next": "^1.1.0"
   },

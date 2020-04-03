@@ -1,14 +1,19 @@
-import Backend from 'react-dnd-html5-backend'
-import { DndProvider } from 'react-dnd'
+import { Box, Heading } from '@chakra-ui/core'
+
 import React from 'react'
-import { DndContainer } from './DndContainer'
+import dynamic from 'next/dynamic'
 
-export interface DragAroundNaiveState {
-  hideSourceOnDrag: boolean
+const DynamicDataGridWithoutSSR = dynamic(() => import('./DataGrid'), {
+  ssr: false,
+})
+
+export const Editor = () => {
+  return (
+    <Box>
+      <Heading as="h1" size="xl">
+        Test
+      </Heading>
+      <DynamicDataGridWithoutSSR />
+    </Box>
+  )
 }
-
-export const Editor: React.FC = () => (
-  <DndProvider backend={Backend}>
-    <DndContainer />
-  </DndProvider>
-)
