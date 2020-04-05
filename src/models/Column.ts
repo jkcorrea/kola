@@ -16,7 +16,11 @@ export class Column {
     this.name = name
     this.type = type
 
-    this.default = options.default
+    if (options) {
+      Object.entries(options).forEach(([k, v]) => {
+        this[k] = v
+      }, this)
+    }
   }
 }
 

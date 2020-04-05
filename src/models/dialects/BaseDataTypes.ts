@@ -9,7 +9,7 @@ const StringDataTypeDefaultOptions = {
 }
 type StringDataTypeOptionsType = Partial<typeof StringDataTypeDefaultOptions>
 
-export interface NumberDataTypeOptions {
+type NumberDataTypeOptionsType = {
   length?: number
   zerofill?: boolean
   decimals?: number
@@ -18,7 +18,7 @@ export interface NumberDataTypeOptions {
   unsigned?: boolean
 }
 
-export interface EnumDataTypeOptions {
+type EnumDataTypeOptions = {
   values: string[]
 }
 
@@ -125,15 +125,12 @@ class NumberDataType extends AbstractDataType {
   readonly scale: number
   readonly unsigned: boolean
 
-  constructor(options?: NumberDataTypeOptions) {
+  constructor(options: NumberDataTypeOptionsType = {}) {
     super()
 
-    this.length = options.length
-    this.zerofill = options.zerofill
-    this.decimals = options.decimals
-    this.precision = options.precision
-    this.scale = options.scale
-    this.unsigned = options.unsigned
+    Object.entries(options).forEach(([k, v]) => {
+      this[k] = v
+    }, this)
   }
 
   toSql() {
@@ -278,7 +275,7 @@ class EnumDataType extends AbstractDataType {
 
   readonly values: string[]
 
-  constructor(options?: EnumDataTypeOptions) {
+  constructor(options: EnumDataTypeOptions) {
     super()
 
     this.values = options.values
