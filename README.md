@@ -1,6 +1,6 @@
 # Kola
 
-Collaborative relational database designer with automatic migration generation for your favorite framework.
+Design and generate backends with little-to-no code!
 
 ## Table of Contents
 

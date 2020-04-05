@@ -36,6 +36,7 @@ module.exports = {
     },
   },
   rules: {
+    'no-underscore-dangle': 'off',
     'react/prop-types': 'off',
     // Too restrictive, writing ugly code to defend against a very unlikely scenario: https://eslint.org/docs/rules/no-prototype-builtins
     'no-prototype-builtins': 'off',
@@ -60,6 +61,11 @@ module.exports = {
     ],
 
     'react/jsx-filename-extension': ['error', { extensions: ['.tsx'] }],
+    'lines-between-class-members': [
+      'error',
+      'always',
+      { exceptAfterSingleLine: true },
+    ],
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/no-use-before-define': [
       'error',
@@ -69,6 +75,10 @@ module.exports = {
         variables: true,
         typedefs: true,
       },
+    ],
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      { ignoreRestSiblings: true, argsIgnorePattern: '^_' },
     ],
   },
   overrides: [
