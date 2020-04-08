@@ -1,6 +1,6 @@
 import localforage from 'localforage'
 import { Database } from 'models/Database'
-import { ValidDataType } from 'models/DataTypes'
+import { DialectType, ValidDataType } from 'models/DataTypes'
 import { useEffect, useState } from 'react'
 import { createContainer } from 'unstated-next'
 
@@ -11,11 +11,11 @@ type UiState = {
   currentTable: string
 }
 
-const defaultDb = Database.fromJSON({
+const defaultDbJSON = {
   name: 'My Fancy Database',
   tables: [
     {
-      dialect: 'postgres',
+      dialect: 'postgres' as DialectType,
       name: 'signups',
       columns: [
         {
@@ -25,13 +25,13 @@ const defaultDb = Database.fromJSON({
       ],
     },
   ],
-})
+}
 
 const initialState: UiState = {
   showSchema: false,
-  databases: [defaultDb],
+  databases: [Database.fromJSON(defaultDbJSON)],
   currentDatabase: 0,
-  currentTable: null,
+  currentTable: defaultDbJSON.tables[0].name,
 }
 
 const useUi = () => {

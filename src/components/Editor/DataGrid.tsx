@@ -1,37 +1,65 @@
-import { Box, Heading } from '@chakra-ui/core'
-import { EmptyRows } from 'components/Editor/EmptyRows'
-import { UiContainer } from 'containers/UiContainer'
-import React from 'react'
-import ReactDataGrid from 'react-data-grid'
-import { useContainer } from 'unstated-next'
+import { Box } from '@chakra-ui/core'
+import { HotColumn, HotTable } from '@handsontable/react'
+import Handsontable from 'handsontable'
+import { Table } from 'models/Table'
+import React, { useMemo, useState } from 'react'
 
-const DataGrid = () => {
-  const {
-    ui: { databases, currentDatabase, currentTable },
-  } = useContainer(UiContainer)
+type Props = {
+  table: Table
+}
 
-  const db = databases[currentDatabase]
-  const table = db.tables.get(currentTable)
+const DEFAULT_NUM_ROWS = 10
 
-  if (!table) {
-    return (
-      <Box pt="10px">
-        <Heading size="lg">Select a table</Heading>
-      </Box>
+const padTableWithColumns = (
+  realColumns: React.ReactNode[],
+  { minWidth = 10, numExtraColumns = 3 } = {},
+) => {
+  if (numExtraColumns < 0 || minWidth < realColumns.length) {
+    throw new Error('number of actual columns exceeds constraints')
+  }
+
+  const widthWithExtra = realColumns.length + numExtraColumns
+  const width = widthWithExtra < minWidth ? minWidth : widthWithExtra
+
+  const columns = []
+  for (let i = 0; i < width; i += 1) {
+    columns.push(
+      i < realColumns.length ? (
+        realColumns[i]
+      ) : (
+        <HotColumn key={`dummy-col${i}`} title=" " />
+      ),
     )
   }
 
-  // Collect the columns
-  const columns = []
-  table.columns.forEach((_, key) => {
-    columns.push({ key, name: key })
-  })
+  return columns
+}
 
-  const rows = []
+const DataGrid: React.FC<Props> = ({ table }) => {
+  const realColumns = useMemo<React.ReactNode[]>(() => {
+    // Collect the columns
+    const cols = []
+    table.columns.forEach((c) => {
+      cols.push(<HotColumn readOnly key={c.name} title={c.name} />)
+    })
+    return cols
+  }, [table])
+
+  // Tack on 3 blank (virtual) columns for playing around with
+  const columns = padTableWithColumns(realColumns)
+
+  const [data] = useState(
+    Handsontable.helper.createEmptySpreadsheetData(
+      DEFAULT_NUM_ROWS,
+      columns.length,
+    ),
+  )
 
   return (
-    <Box className="DataGrid">
-      <ReactDataGrid columns={columns} rows={rows} emptyRowsView={EmptyRows} />
+    <Box w="100%">
+      <HotTable data={data} licenseKey="non-commercial-and-evaluation">
+        {columns}
+      </HotTable>
     </Box>
   )
 }

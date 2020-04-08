@@ -1,6 +1,5 @@
-// TODO fire hot. this bad.
-// Find a way to import this only where needed (i.e. DataGrid component)
-import 'react-data-grid/dist/react-data-grid.css'
+// TODO Find a way to import this only where needed (i.e. DataGrid component)
+import 'handsontable/dist/handsontable.full.css'
 
 import { CSSReset, DarkMode, ThemeProvider } from '@chakra-ui/core'
 import { APP_NAME } from 'lib/constants'
