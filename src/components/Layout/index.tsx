@@ -1,6 +1,6 @@
-import { Box } from '@chakra-ui/core'
-import React from 'react'
+import { Flex } from '@chakra-ui/core'
 import { Topbar } from 'components/Layout/Topbar'
+import React from 'react'
 
 export type LayoutProps = {
   children: React.ReactNode
@@ -12,10 +12,10 @@ export const Layout: React.FC<LayoutProps> = ({ children, footer }) => {
   // alignItems="center"
   // justifyContent="flex-start"
   return (
-    <Box w="100%" h="100%">
+    <Flex flexDir="column" w="100%" h="100%">
       <Topbar />
       {children}
       {footer}
-    </Box>
+    </Flex>
   )
 }

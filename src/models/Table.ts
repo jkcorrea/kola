@@ -1,30 +1,33 @@
 import { ColumnExistsError } from 'lib/errors'
-import { DialectType } from 'lib/types'
-import { AbstractDataType } from 'models/dialects/BaseDataTypes'
 
-import { Column } from './Column'
-import { DataTypes } from './DataTypes'
+import { Column, ColumnSerialized } from './Column'
+import { DialectType } from './DataTypes'
+import { AbstractDataType } from './dialects/BaseDataTypes'
 
 interface TableOptions {
   dialect: DialectType
 }
 
-export class Table {
+export interface TableSerialized {
   dialect: DialectType
   name: string
-  readonly primaryKey: Column
-  readonly columns: Map<string, Column>
+  columns: ColumnSerialized[]
+}
+
+export class Table {
+  readonly primaryKey = 'id'
+
+  dialect: DialectType
+  name: string
+  columns: Map<string, Column>
 
   constructor(name: string, options: TableOptions) {
     this.dialect = options.dialect
     this.name = name
 
-    this.primaryKey = new Column(
-      'id',
-      new DataTypes[this.dialect].UUIDDataType(),
-    )
+    const pkColumn = new Column(this.primaryKey, 'uuid')
 
-    this.columns = new Map([['id', this.primaryKey]])
+    this.columns = new Map([[this.primaryKey, pkColumn]])
   }
 
   addColumn(
@@ -43,5 +46,16 @@ export class Table {
         : dataType
 
     this.columns.set(name, new Column(name, DataType))
+  }
+
+  static fromJSON(data: TableSerialized): Table {
+    const table = new Table(data.name, { dialect: data.dialect })
+    data.columns.forEach((c) => {
+      if (c.name === table.primaryKey) return
+      const column = Column.fromJSON(c)
+      table.columns.set(column.name, column)
+    })
+
+    return table
   }
 }

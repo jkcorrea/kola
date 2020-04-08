@@ -1,5 +1,4 @@
-import { CustomTheme, theme as baseTheme } from '@chakra-ui/core'
-
+import { theme as baseTheme } from '@chakra-ui/core'
 import React from 'react'
 
 const fonts = {
