@@ -11,6 +11,7 @@ Design and generate backends with little-to-no code!
 - [Roadmap](#roadmap)
 - [Development](#development)
   - [Setup](#setup)
+  - [Contributing](#contributing)
 - [License](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -71,6 +72,22 @@ npm run dev
 yarn dev
 # app is now running at http://localhost:3000
 ```
+
+### Contributing
+
+**Server**: This is statically rendered React app built with Next.js. So if you haven't worked with Next yet, go ahead and familiarize yourself with their [official docs](https://nextjs.org/docs/getting-started). It's not too different than a normal create-react-app style project.
+
+**State management**: I'm trying to keep things simple and use React Context+Hooks for state management (via [unstated-next](https://github.com/jamiebuilds/unstated-next/)). We might have to "upgrade" to Apollo if/when we add a real backend.
+
+**Project Structure**:
+
+- `public/` - static assets to be served alongside the app (e.g. logo, fonts)
+- `src/`
+  - `components/` - traditional react components. the "UI" of the app
+  - `containers` - `unstated-next` containers, defining/holding the state of the app
+  - `lib/` - miscelaneous helper modules
+  - `models/` - common place to define the structure & types of the app's data
+  - `pages` - Next.js uses this as the entry point. Files here become literal HTML pages in the app (see their [docs](https://nextjs.org/docs/basic-features/pages))
 
 ## License
 
